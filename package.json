@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Space-tang/Playbook-Door.git"
+    "url": "https://github.com/tkestack/tke-playbook-ui.git"
   },
-  "homepage": "https://space-tang.github.io/Playbook-Door/"
+  "homepage": "https://tkestack.github.io/tke-playbook-ui/"
 }

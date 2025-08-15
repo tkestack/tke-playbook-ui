@@ -45,7 +45,7 @@
 
 ### 4. 访问你的网站
 ```
-https://你的用户名.github.io/Playbook-Door/
+https://tkestack.github.io/tke-playbook-ui/
 ```
 
 ## 🔄 更换目标仓库
