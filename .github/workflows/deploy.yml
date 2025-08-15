@@ -39,7 +39,7 @@ jobs:
       run: |
         echo "🔄 更新 submodule..."
         git submodule update --init --recursive --remote
-        cd playbook
+        cd tke-playbook
         git fetch origin
         git reset --hard origin/main
         cd ..
