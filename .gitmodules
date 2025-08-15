@@ -1,4 +1,3 @@
 [submodule "playbook"]
 	path = playbook
-	url = https://github.com/tkestack/tke-playbook.git
-
+	url = https://github.com/tkestack/tke-playbook-ui.git
