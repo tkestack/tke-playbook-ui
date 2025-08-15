@@ -26,8 +26,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        submodules: true
+        submodules: recursive
         token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
       
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -41,15 +42,17 @@ jobs:
       run: |
         echo "🔄 更新 submodule..."
         git submodule update --init --recursive --remote
-        cd tke-playbook
-        git fetch origin
-        git reset --hard origin/main
-        cd ..
+        
+        echo "📋 检查子模块状态..."
+        git submodule status
         
         echo "🚀 生成目录数据..."
         npm run generate
         
-    - name: Commit generated files
+        echo "📊 检查生成的文件..."
+        ls -la public/directories.json
+        
+    - name: Commit generated files and submodule updates
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
@@ -57,10 +60,10 @@ jobs:
         # 检查是否有变化
         if [ -n "$(git status --porcelain)" ]; then
           echo "📝 发现文件变化，提交更新..."
-          git add public/directories.json
-          git commit -m "🤖 自动更新目录数据 [skip ci]"
+          git add .
+          git commit -m "🤖 自动更新子模块和目录数据 [skip ci]"
           git push
-          echo "✅ 已提交生成的文件"
+          echo "✅ 已提交生成的文件和子模块更新"
         else
           echo "ℹ️ 没有文件变化，跳过提交"
         fi
