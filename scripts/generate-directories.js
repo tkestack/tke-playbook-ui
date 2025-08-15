@@ -54,7 +54,7 @@ function parseToml(content) {
 // 扫描目录获取所有项目
 function scanDirectories(rootPath) {
     const directories = []
-    const playbookPath = path.join(rootPath, 'playbook')
+    const playbookPath = path.join(rootPath, 'tke-playbook')
 
     // 检查 playbook 目录是否存在
     if (!fs.existsSync(playbookPath)) {
