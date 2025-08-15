@@ -49,6 +49,22 @@ jobs:
         echo "🚀 生成目录数据..."
         npm run generate
         
+    - name: Commit generated files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 检查是否有变化
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "📝 发现文件变化，提交更新..."
+          git add public/directories.json
+          git commit -m "🤖 自动更新目录数据 [skip ci]"
+          git push
+          echo "✅ 已提交生成的文件"
+        else
+          echo "ℹ️ 没有文件变化，跳过提交"
+        fi
+        
     - name: Build application
       run: npm run build
       
