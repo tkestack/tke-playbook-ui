@@ -173,5 +173,3 @@ draft = false                          # 是否为草稿
 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
 
 ---
-
-**⭐ 如果这个项目对你有帮助，请给个 Star 支持一下！**
