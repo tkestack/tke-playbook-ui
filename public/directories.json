@@ -1,13 +1,13 @@
 {
-  "lastUpdate": "2025-08-22T03:00:56.026Z",
+  "lastUpdate": "2025-08-22T03:12:14.433Z",
   "totalCount": 4,
   "directories": [
     {
       "name": "测试1",
       "directoryName": "test1",
       "description": "现在是测试场景111",
-      "createdAt": "2025-08-22T03:00:49.594Z",
-      "updatedAt": "2025-08-22T03:00:49.594Z",
+      "createdAt": "2025-08-22T03:12:03.904Z",
+      "updatedAt": "2025-08-22T03:12:03.904Z",
       "fileCount": 1,
       "tags": [
         "测试1"
@@ -21,8 +21,8 @@
       "name": "TKE AI 脚本箱",
       "directoryName": "tke-ai-playbook",
       "description": "暂无描述",
-      "createdAt": "2025-08-22T03:00:55.852Z",
-      "updatedAt": "2025-08-22T03:00:55.852Z",
+      "createdAt": "2025-08-22T03:12:03.904Z",
+      "updatedAt": "2025-08-22T03:12:03.904Z",
       "fileCount": 1,
       "tags": [
         "AI"
@@ -36,8 +36,8 @@
       "name": "Kubernetes故障演练Playbooks指南",
       "directoryName": "tke-chaos-playbook",
       "description": "暂无描述",
-      "createdAt": "2025-08-22T03:00:55.852Z",
-      "updatedAt": "2025-08-22T03:00:55.853Z",
+      "createdAt": "2025-08-22T03:12:03.904Z",
+      "updatedAt": "2025-08-22T03:12:03.904Z",
       "fileCount": 1,
       "tags": [
         "HA, disaster recovery"
@@ -51,8 +51,8 @@
       "name": "TKE NginxIngress 插件迁移至自建 Nginx Ingress",
       "directoryName": "tke-to-community-ingress",
       "description": "实现从 TKE Nginx Ingress 插件到社区版 Nginx Ingress 的平滑迁移",
-      "createdAt": "2025-08-22T03:00:49.594Z",
-      "updatedAt": "2025-08-22T03:00:49.594Z",
+      "createdAt": "2025-08-22T03:12:03.904Z",
+      "updatedAt": "2025-08-22T03:12:03.904Z",
       "fileCount": 10,
       "tags": [
         "TKE，Ingress"
