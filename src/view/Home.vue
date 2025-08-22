@@ -276,18 +276,14 @@ const setActiveCategory = (category) => {
 }
 
 const openDirectory = (directory) => {
-    // 跳转到 PlayBook 仓库的对应目录，使用实际的目录名
-    const directoryName = directory.directoryName || directory.name
-
     let githubUrl
 
-    // 特殊目录处理
-    if (directoryName === 'tke-ai-playbook') {
-        githubUrl = 'https://github.com/tkestack/tke-ai-playbook'
-    } else if (directoryName === 'tke-chaos-playbook') {
-        githubUrl = 'https://github.com/tkestack/tke-chaos-playbook'
+    // 优先使用自定义的 playbookUrl
+    if (directory.playbookUrl) {
+        githubUrl = directory.playbookUrl
     } else {
         // 默认跳转到主仓库的对应目录
+        const directoryName = directory.directoryName || directory.name
         githubUrl = `https://github.com/tkestack/tke-playbook/tree/main/${directoryName}`
     }
 

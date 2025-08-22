@@ -98,7 +98,8 @@ function scanDirectories(rootPath) {
                             status: 'active',
                             category: meta.class || '未定义',
                             icon: 'Document',
-                            color: getColorByCategory(meta.class || '未定义')
+                            color: getColorByCategory(meta.class || '未定义'),
+                            playbookUrl: meta.playbook_url || null // 添加自定义URL字段
                         }
 
                         directories.push(directory)
