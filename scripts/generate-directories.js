@@ -8,44 +8,82 @@
 const fs = require('fs')
 const path = require('path')
 
-// 简单的 TOML 解析器（针对我们的格式）
+// 改进的 TOML 解析器（支持多行字符串和注释）
 function parseToml(content) {
     const result = {}
     const lines = content.split('\n')
+    let i = 0
 
-    for (const line of lines) {
-        const trimmed = line.trim()
-        if (!trimmed || trimmed.startsWith('#')) continue
+    while (i < lines.length) {
+        const line = lines[i].trim()
+        
+        // 跳过空行和注释行
+        if (!line || line.startsWith('#')) {
+            i++
+            continue
+        }
 
-        const match = trimmed.match(/^(\w+)\s*=\s*(.+)$/)
+        // 匹配 key = value 格式
+        const match = line.match(/^(\w+)\s*=\s*(.*)$/)
         if (match) {
-            const [, key, value] = match
+            const [, key, valueStart] = match
+            let value = valueStart.trim()
 
-            // 先去掉注释
-            const cleanValue = value.split('#')[0].trim()
-
-            // 处理不同类型的值
-            if (cleanValue.startsWith('[') && cleanValue.endsWith(']')) {
-                // 数组格式: ["item1", "item2"]
-                try {
-                    result[key] = JSON.parse(cleanValue)
-                } catch {
-                    result[key] = []
+            // 处理多行字符串（以单引号或双引号开始但不结束的情况）
+            if ((value.startsWith("'") && !value.endsWith("'")) || 
+                (value.startsWith('"') && !value.endsWith('"'))) {
+                
+                const quote = value[0]
+                let multilineValue = value.substring(1) // 去掉开始的引号
+                i++
+                
+                // 继续读取后续行直到找到结束引号
+                while (i < lines.length) {
+                    const nextLine = lines[i]
+                    if (nextLine.trim().endsWith(quote)) {
+                        // 找到结束引号
+                        multilineValue += '\n' + nextLine.trim().slice(0, -1) // 去掉结束的引号
+                        break
+                    } else {
+                        multilineValue += '\n' + nextLine
+                    }
+                    i++
                 }
-            } else if (cleanValue.startsWith("'") && cleanValue.endsWith("'")) {
-                // 字符串格式: 'value'
-                result[key] = cleanValue.slice(1, -1)
-            } else if (cleanValue.startsWith('"') && cleanValue.endsWith('"')) {
-                // 字符串格式: "value"
-                result[key] = cleanValue.slice(1, -1)
-            } else if (cleanValue === 'true' || cleanValue === 'false') {
-                // 布尔值
-                result[key] = cleanValue === 'true'
+                
+                result[key] = multilineValue.trim()
             } else {
-                // 其他情况
-                result[key] = cleanValue
+                // 处理单行值
+                // 先检查是否有行内注释（但要小心引号内的#）
+                let cleanValue = value
+                
+                if (value.startsWith('[') && value.endsWith(']')) {
+                    // 数组格式: ["item1", "item2"]
+                    try {
+                        result[key] = JSON.parse(value)
+                    } catch {
+                        result[key] = []
+                    }
+                } else if (value.startsWith("'") && value.endsWith("'")) {
+                    // 单引号字符串
+                    result[key] = value.slice(1, -1)
+                } else if (value.startsWith('"') && value.endsWith('"')) {
+                    // 双引号字符串
+                    result[key] = value.slice(1, -1)
+                } else if (value === 'true' || value === 'false') {
+                    // 布尔值
+                    result[key] = value === 'true'
+                } else {
+                    // 其他情况，可能包含行内注释
+                    const commentIndex = value.indexOf('#')
+                    if (commentIndex !== -1) {
+                        cleanValue = value.substring(0, commentIndex).trim()
+                    }
+                    result[key] = cleanValue
+                }
             }
         }
+        
+        i++
     }
 
     return result
