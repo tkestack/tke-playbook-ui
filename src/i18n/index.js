@@ -77,8 +77,10 @@ const en = {
 }
 
 const i18n = createI18n({
+  legacy: false, // 使用 Composition API 模式
   locale: 'zh', // 默认语言
   fallbackLocale: 'zh',
+  globalInjection: true, // 全局注入
   messages: {
     zh,
     en
