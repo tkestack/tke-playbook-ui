@@ -1,13 +1,13 @@
 {
-  "lastUpdate": "2025-08-22T07:25:46.240Z",
+  "lastUpdate": "2025-08-22T07:50:49.499Z",
   "totalCount": 3,
   "directories": [
     {
       "name": "TKE AI 脚本箱",
       "directoryName": "tke-ai-playbook",
       "description": "暂无描述",
-      "createdAt": "2025-08-22T07:25:39.635Z",
-      "updatedAt": "2025-08-22T07:25:39.635Z",
+      "createdAt": "2025-08-22T07:50:40.417Z",
+      "updatedAt": "2025-08-22T07:50:49.324Z",
       "fileCount": 1,
       "tags": [
         "AI"
@@ -22,8 +22,8 @@
       "name": "Kubernetes故障演练Playbooks指南",
       "directoryName": "tke-chaos-playbook",
       "description": "暂无描述",
-      "createdAt": "2025-08-22T07:25:39.635Z",
-      "updatedAt": "2025-08-22T07:25:39.635Z",
+      "createdAt": "2025-08-22T07:50:40.417Z",
+      "updatedAt": "2025-08-22T07:50:49.324Z",
       "fileCount": 1,
       "tags": [
         "HA, disaster recovery"
@@ -38,8 +38,8 @@
       "name": "TKE NginxIngress 插件迁移至自建 Nginx Ingress",
       "directoryName": "tke-to-community-ingress",
       "description": "实现从 TKE Nginx Ingress 插件到社区版 Nginx Ingress 的平滑迁移",
-      "createdAt": "2025-08-22T07:25:39.635Z",
-      "updatedAt": "2025-08-22T07:25:39.635Z",
+      "createdAt": "2025-08-22T07:50:40.417Z",
+      "updatedAt": "2025-08-22T07:50:49.324Z",
       "fileCount": 10,
       "tags": [
         "TKE，Ingress"
