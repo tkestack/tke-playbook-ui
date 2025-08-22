@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2025-08-22T07:54:30.282Z",
+  "lastUpdate": "2025-08-22T07:57:24.066Z",
   "totalCount": 3,
   "directories": [
     {
@@ -8,8 +8,8 @@
       "directoryName": "tke-ai-playbook",
       "description": "暂无描述",
       "descriptionEn": "No description available",
-      "createdAt": "2025-08-22T07:54:20.782Z",
-      "updatedAt": "2025-08-22T07:54:20.782Z",
+      "createdAt": "2025-08-22T07:57:15.796Z",
+      "updatedAt": "2025-08-22T07:57:15.796Z",
       "fileCount": 1,
       "tags": [
         "AI"
@@ -30,8 +30,8 @@
       "directoryName": "tke-chaos-playbook",
       "description": "暂无描述",
       "descriptionEn": "No description available",
-      "createdAt": "2025-08-22T07:54:20.782Z",
-      "updatedAt": "2025-08-22T07:54:20.782Z",
+      "createdAt": "2025-08-22T07:57:15.796Z",
+      "updatedAt": "2025-08-22T07:57:15.796Z",
       "fileCount": 1,
       "tags": [
         "HA, disaster recovery"
@@ -52,8 +52,8 @@
       "directoryName": "tke-to-community-ingress",
       "description": "实现从 TKE Nginx Ingress 插件到社区版 Nginx Ingress 的平滑迁移",
       "descriptionEn": "Achieve smooth migration from the TKE Nginx Ingress plugin to the community version of Nginx Ingress",
-      "createdAt": "2025-08-22T07:54:20.782Z",
-      "updatedAt": "2025-08-22T07:54:20.783Z",
+      "createdAt": "2025-08-22T07:57:15.796Z",
+      "updatedAt": "2025-08-22T07:57:15.796Z",
       "fileCount": 10,
       "tags": [
         "TKE，Ingress"
