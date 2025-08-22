@@ -89,14 +89,18 @@ function scanDirectories(rootPath) {
 
                         const directory = {
                             name: meta.title || item.name,
+                            nameEn: meta.title_en || meta.title || item.name, // 英文标题
                             directoryName: item.name, // 保存实际的目录名用于跳转
                             description: meta.description || '暂无描述',
+                            descriptionEn: meta.description_en || meta.description || 'No description available', // 英文描述
                             createdAt: stats.birthtime.toISOString(),
                             updatedAt: stats.mtime.toISOString(),
                             fileCount: fileCount,
                             tags: meta.tag || [],
+                            tagsEn: meta.tag_en || meta.tag || [], // 英文标签
                             status: 'active',
                             category: meta.class || '未定义',
+                            categoryEn: meta.class_en || meta.class || 'Undefined', // 英文分类
                             icon: 'Document',
                             color: getColorByCategory(meta.class || '未定义'),
                             playbookUrl: meta.playbook_url || null // 添加自定义URL字段

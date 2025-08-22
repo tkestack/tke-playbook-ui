@@ -7,6 +7,9 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
+// 国际化
+import i18n from './i18n'
+
 // 导入全局样式
 import './style.css'
 
@@ -22,6 +25,7 @@ try {
 
   app.use(router)
   app.use(ElementPlus)
+  app.use(i18n)
   
   console.log('✅ Vue 应用配置完成，开始挂载...')
   app.mount('#app')
