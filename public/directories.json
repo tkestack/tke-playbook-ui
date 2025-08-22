@@ -1,51 +1,69 @@
 {
-  "lastUpdate": "2025-08-22T07:50:49.499Z",
+  "lastUpdate": "2025-08-22T07:52:36.681Z",
   "totalCount": 3,
   "directories": [
     {
       "name": "TKE AI 脚本箱",
+      "nameEn": "TKE AI Playbook",
       "directoryName": "tke-ai-playbook",
       "description": "暂无描述",
-      "createdAt": "2025-08-22T07:50:40.417Z",
-      "updatedAt": "2025-08-22T07:50:49.324Z",
+      "descriptionEn": "No description available",
+      "createdAt": "2025-08-22T07:52:30.417Z",
+      "updatedAt": "2025-08-22T07:52:30.417Z",
       "fileCount": 1,
       "tags": [
         "AI"
       ],
+      "tagsEn": [
+        "AI"
+      ],
       "status": "active",
       "category": "TKE",
+      "categoryEn": "TKE",
       "icon": "Document",
       "color": "#409EFF",
       "playbookUrl": "https://github.com/tkestack/tke-ai-playbook"
     },
     {
       "name": "Kubernetes故障演练Playbooks指南",
+      "nameEn": "Kubernetes Chaos Testing Playbooks Guide",
       "directoryName": "tke-chaos-playbook",
       "description": "暂无描述",
-      "createdAt": "2025-08-22T07:50:40.417Z",
-      "updatedAt": "2025-08-22T07:50:49.324Z",
+      "descriptionEn": "No description available",
+      "createdAt": "2025-08-22T07:52:30.417Z",
+      "updatedAt": "2025-08-22T07:52:30.417Z",
       "fileCount": 1,
       "tags": [
         "HA, disaster recovery"
       ],
+      "tagsEn": [
+        "HA, disaster recovery"
+      ],
       "status": "active",
       "category": "TKE",
+      "categoryEn": "TKE",
       "icon": "Document",
       "color": "#409EFF",
       "playbookUrl": "https://github.com/tkestack/tke-chaos-playbook"
     },
     {
       "name": "TKE NginxIngress 插件迁移至自建 Nginx Ingress",
+      "nameEn": "Migrate the TKE NginxIngress plugin to a self-built Nginx Ingress",
       "directoryName": "tke-to-community-ingress",
       "description": "实现从 TKE Nginx Ingress 插件到社区版 Nginx Ingress 的平滑迁移",
-      "createdAt": "2025-08-22T07:50:40.417Z",
-      "updatedAt": "2025-08-22T07:50:49.324Z",
+      "descriptionEn": "Achieve smooth migration from the TKE Nginx Ingress plugin to the community version of Nginx Ingress",
+      "createdAt": "2025-08-22T07:52:30.417Z",
+      "updatedAt": "2025-08-22T07:52:30.418Z",
       "fileCount": 10,
       "tags": [
         "TKE，Ingress"
       ],
+      "tagsEn": [
+        "TKE，Ingress"
+      ],
       "status": "active",
       "category": "TKE",
+      "categoryEn": "TKE",
       "icon": "Document",
       "color": "#409EFF",
       "playbookUrl": null
