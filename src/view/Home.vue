@@ -10,7 +10,7 @@
                 <div class="header-actions">
                     <el-button @click="toggleLanguage" class="language-btn">
                         <el-icon>
-                            <Globe />
+                            <Switch />
                         </el-icon>
                         {{ locale === 'zh' ? 'EN' : '中文' }}
                     </el-button>
@@ -33,8 +33,9 @@
 
                     <!-- 搜索栏 -->
                     <div class="hero-search">
-                        <el-input v-model="searchKeyword" :placeholder="t('hero.searchPlaceholder')" size="large" clearable class="search-input"
-                            autocomplete="new-password" spellcheck="false" :name="`search-${Date.now()}`">
+                        <el-input v-model="searchKeyword" :placeholder="t('hero.searchPlaceholder')" size="large"
+                            clearable class="search-input" autocomplete="new-password" spellcheck="false"
+                            :name="`search-${Date.now()}`">
                             <template #prefix>
                                 <el-icon>
                                     <Search />
@@ -118,13 +119,18 @@
                         <div class="card-right">
                             <div class="card-header">
                                 <h3 class="card-title">{{ locale === 'en' ? directory.nameEn : directory.name }}</h3>
-                                <div class="card-category">{{ locale === 'en' ? directory.categoryEn : directory.category }}</div>
+                                <div class="card-category">{{ locale === 'en' ? directory.categoryEn :
+                                    directory.category }}
+                                </div>
                             </div>
 
-                            <p class="card-description">{{ locale === 'en' ? directory.descriptionEn : directory.description }}</p>
+                            <p class="card-description">{{ locale === 'en' ? directory.descriptionEn :
+                                directory.description }}
+                            </p>
 
                             <div class="card-tags-row">
-                                <el-tag v-for="(tag, index) in (locale === 'en' ? directory.tagsEn : directory.tags).slice(0, 3)"
+                                <el-tag
+                                    v-for="(tag, index) in (locale === 'en' ? directory.tagsEn : directory.tags).slice(0, 3)"
                                     :key="`${directory.directoryName}-${index}`" size="small" class="directory-tag">
                                     {{ tag }}
                                 </el-tag>
@@ -173,7 +179,7 @@ import {
     Tools,
     Setting,
     Folder,
-    Globe
+    Switch
 } from '@element-plus/icons-vue'
 
 // 国际化
@@ -206,7 +212,7 @@ const normalizeCategory = (directory, isEnglish = false) => {
 
 const generateDynamicCategories = (directories) => {
     const isEnglish = locale.value === 'en'
-    
+
     // 1. 提取所有分类
     const categorySet = new Set()
     directories.forEach(dir => {
