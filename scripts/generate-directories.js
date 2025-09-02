@@ -130,10 +130,14 @@ function scanDirectories(rootPath) {
                         // 获取目录统计信息
                         const stats = fs.statSync(dirPath)
 
+                        // 计算相对于根路径的相对路径
+                        const relativePath = path.relative(rootPath, dirPath).replace(/\\/g, '/');
+
                         const directory = {
                             name: meta.title || dirName,
                             nameEn: meta.title_en || meta.title || dirName, // 英文标题
                             directoryName: dirName, // 保存实际的目录名用于跳转
+                            relativePath: relativePath, // 保存相对于根路径的完整路径
                             description: meta.description || '暂无描述',
                             descriptionEn: meta.description_en || meta.description || 'No description available', // 英文描述
                             createdAt: stats.birthtime.toISOString(),
