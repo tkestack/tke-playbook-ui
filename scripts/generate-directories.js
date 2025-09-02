@@ -89,33 +89,38 @@ function parseToml(content) {
     return result
 }
 
-// 扫描目录获取所有项目
+// 递归扫描目录获取所有项目
 function scanDirectories(rootPath) {
     const directories = []
-    const playbookPath = path.join(rootPath, 'tke-playbook')
 
-    // 检查 tke-playbook 目录是否存在
-    if (!fs.existsSync(playbookPath)) {
-        console.log('tke-playbook 目录不存在，跳过扫描')
-        return directories
-    }
+    // 递归查找 __meta__.txt 文件
+    function scanRecursively(currentPath) {
+        try {
+            const items = fs.readdirSync(currentPath, { withFileTypes: true })
 
-    try {
-        const items = fs.readdirSync(playbookPath, { withFileTypes: true })
+            for (const item of items) {
+                const fullPath = path.join(currentPath, item.name)
+                
+                // 跳过隐藏目录
+                if (item.name.startsWith('.')) {
+                    continue
+                }
 
-        for (const item of items) {
-            if (item.isDirectory() && !item.name.startsWith('.')) {
-                const dirPath = path.join(playbookPath, item.name)
-                const metaPath = path.join(dirPath, '__meta__.txt')
-
-                if (fs.existsSync(metaPath)) {
+                if (item.isDirectory()) {
+                    // 递归扫描子目录
+                    scanRecursively(fullPath)
+                } else if (item.isFile() && item.name === '__meta__.txt') {
+                    // 找到 __meta__.txt 文件
+                    const dirPath = path.dirname(fullPath)
+                    const dirName = path.basename(dirPath)
+                    
                     try {
-                        const metaContent = fs.readFileSync(metaPath, 'utf-8')
+                        const metaContent = fs.readFileSync(fullPath, 'utf-8')
                         const meta = parseToml(metaContent)
 
                         // 跳过草稿项目
                         if (meta.draft === true) {
-                            console.log(`跳过草稿项目: ${item.name}`)
+                            console.log(`跳过草稿项目: ${dirName}`)
                             continue
                         }
 
@@ -126,9 +131,9 @@ function scanDirectories(rootPath) {
                         const stats = fs.statSync(dirPath)
 
                         const directory = {
-                            name: meta.title || item.name,
-                            nameEn: meta.title_en || meta.title || item.name, // 英文标题
-                            directoryName: item.name, // 保存实际的目录名用于跳转
+                            name: meta.title || dirName,
+                            nameEn: meta.title_en || meta.title || dirName, // 英文标题
+                            directoryName: dirName, // 保存实际的目录名用于跳转
                             description: meta.description || '暂无描述',
                             descriptionEn: meta.description_en || meta.description || 'No description available', // 英文描述
                             createdAt: stats.birthtime.toISOString(),
@@ -148,15 +153,17 @@ function scanDirectories(rootPath) {
                         console.log(`处理项目: ${directory.name} (分类: ${directory.category})`)
 
                     } catch (error) {
-                        console.error(`解析 ${metaPath} 失败:`, error.message)
+                        console.error(`解析 ${fullPath} 失败:`, error.message)
                     }
                 }
             }
+        } catch (error) {
+            console.error(`扫描目录 ${currentPath} 失败:`, error.message)
         }
-    } catch (error) {
-        console.error('扫描目录失败:', error.message)
     }
 
+    // 开始递归扫描
+    scanRecursively(rootPath)
     return directories
 }
 
