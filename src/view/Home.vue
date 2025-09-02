@@ -312,8 +312,12 @@ const openDirectory = (directory) => {
     if (directory.playbookUrl) {
         githubUrl = directory.playbookUrl
     } else if (directory.relativePath) {
-        // 使用完整的相对路径构建 URL
-        githubUrl = `https://github.com/tkestack/tke-playbook/tree/main/${directory.relativePath}`
+        // 使用完整的相对路径构建 URL，但要去掉 tke-playbook/ 前缀
+        let relativePath = directory.relativePath
+        if (relativePath.startsWith('tke-playbook/')) {
+            relativePath = relativePath.substring('tke-playbook/'.length)
+        }
+        githubUrl = `https://github.com/tkestack/tke-playbook/tree/main/${relativePath}`
     } else {
         // 默认跳转到主仓库的对应目录
         const directoryName = directory.directoryName || directory.name
