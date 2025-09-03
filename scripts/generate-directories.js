@@ -133,6 +133,16 @@ function scanDirectories(rootPath) {
                         // 计算相对于根路径的相对路径
                         const relativePath = path.relative(rootPath, dirPath).replace(/\\/g, '/');
 
+                        // 对于 tke-playbook 子模块中的目录，自动生成正确的 playbookUrl
+                        let playbookUrl = meta.playbook_url || null;
+                        
+                        // 如果是 tke-playbook 子模块中的目录，自动生成对应的 GitHub URL
+                        if (relativePath.startsWith('tke-playbook/') && !playbookUrl) {
+                            // 移除前缀 tke-playbook/ 得到 GitHub 上的相对路径
+                            const githubRelativePath = relativePath.substring('tke-playbook/'.length);
+                            playbookUrl = `https://github.com/tkestack/tke-playbook/tree/main/${githubRelativePath}`;
+                        }
+
                         const directory = {
                             name: meta.title || dirName,
                             nameEn: meta.title_en || meta.title || dirName, // 英文标题
@@ -150,7 +160,7 @@ function scanDirectories(rootPath) {
                             categoryEn: meta.class_en || meta.class || 'Undefined', // 英文分类
                             icon: 'Document',
                             color: getColorByCategory(meta.class || '未定义'),
-                            playbookUrl: meta.playbook_url || null // 添加自定义URL字段
+                            playbookUrl: playbookUrl // 添加自动生成的URL字段
                         }
 
                         directories.push(directory)
