@@ -89,33 +89,43 @@ function parseToml(content) {
     return result
 }
 
-// 递归扫描目录获取所有项目
+// 扫描目录获取第一层目录中的项目
 function scanDirectories(rootPath) {
     const directories = []
 
-    // 递归查找 __meta__.txt 文件
-    function scanRecursively(currentPath) {
-        try {
-            const items = fs.readdirSync(currentPath, { withFileTypes: true })
+    // 只扫描第一层目录
+    try {
+        // 获取 tke-playbook 目录路径
+        const tkePlaybookPath = path.join(rootPath, 'tke-playbook')
+        
+        // 检查 tke-playbook 目录是否存在
+        if (!fs.existsSync(tkePlaybookPath)) {
+            console.error('tke-playbook 目录不存在')
+            return directories
+        }
 
-            for (const item of items) {
-                const fullPath = path.join(currentPath, item.name)
+        // 读取 tke-playbook 目录下的第一层项目
+        const items = fs.readdirSync(tkePlaybookPath, { withFileTypes: true })
+
+        for (const item of items) {
+            const fullPath = path.join(tkePlaybookPath, item.name)
+            
+            // 跳过隐藏目录
+            if (item.name.startsWith('.')) {
+                continue
+            }
+
+            // 只处理第一层目录
+            if (item.isDirectory()) {
+                // 查找该目录下的 __meta__.txt 文件
+                const metaFilePath = path.join(fullPath, '__meta__.txt')
                 
-                // 跳过隐藏目录
-                if (item.name.startsWith('.')) {
-                    continue
-                }
-
-                if (item.isDirectory()) {
-                    // 递归扫描子目录
-                    scanRecursively(fullPath)
-                } else if (item.isFile() && item.name === '__meta__.txt') {
+                if (fs.existsSync(metaFilePath)) {
                     // 找到 __meta__.txt 文件
-                    const dirPath = path.dirname(fullPath)
-                    const dirName = path.basename(dirPath)
+                    const dirName = item.name
                     
                     try {
-                        const metaContent = fs.readFileSync(fullPath, 'utf-8')
+                        const metaContent = fs.readFileSync(metaFilePath, 'utf-8')
                         const meta = parseToml(metaContent)
 
                         // 跳过草稿项目
@@ -125,13 +135,13 @@ function scanDirectories(rootPath) {
                         }
 
                         // 计算文件数量
-                        const fileCount = countFiles(dirPath)
+                        const fileCount = countFiles(fullPath)
 
                         // 获取目录统计信息
-                        const stats = fs.statSync(dirPath)
+                        const stats = fs.statSync(fullPath)
 
                         // 计算相对于根路径的相对路径
-                        const relativePath = path.relative(rootPath, dirPath).replace(/\\/g, '/');
+                        const relativePath = path.relative(rootPath, fullPath).replace(/\\/g, '/');
 
                         // 对于 tke-playbook 子模块中的目录，自动生成正确的 playbookUrl
                         let playbookUrl = meta.playbook_url || null;
@@ -165,19 +175,16 @@ function scanDirectories(rootPath) {
 
                         directories.push(directory)
                         console.log(`处理项目: ${directory.name} (分类: ${directory.category})`)
-
                     } catch (error) {
-                        console.error(`解析 ${fullPath} 失败:`, error.message)
+                        console.error(`解析 ${metaFilePath} 失败:`, error.message)
                     }
                 }
             }
-        } catch (error) {
-            console.error(`扫描目录 ${currentPath} 失败:`, error.message)
         }
+    } catch (error) {
+        console.error(`扫描目录失败:`, error.message)
     }
 
-    // 开始递归扫描
-    scanRecursively(rootPath)
     return directories
 }
 
