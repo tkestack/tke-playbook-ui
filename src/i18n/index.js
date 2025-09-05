@@ -23,6 +23,10 @@ const zh = {
     loginSuccess: '登录成功！',
     logoutSuccess: '已登出'
   },
+  playbook: {
+    title: 'Playbook详情',
+    description: '查看Playbook详细信息和讨论'
+  },
   hero: {
     title: '欢迎来到 TKE Playbook',
     subtitle: '本网站汇集了 TKE 最新的最佳实践 Playbook。学习如何使用和构建基于低成本、全托管容器化平台自动扩展的应用。',
@@ -48,6 +52,13 @@ const zh = {
   },
   empty: {
     description: '暂无目录数据'
+  },
+  dialog: {
+    close: '关闭',
+    viewOnGithub: '在 GitHub 上查看',
+    description: '描述',
+    tags: '标签',
+    comments: '评论'
   },
   categories: {
     undefined: '未定义'
@@ -77,6 +88,10 @@ const en = {
     loginSuccess: 'Login successful!',
     logoutSuccess: 'Logged out'
   },
+  playbook: {
+    title: 'Playbook Details',
+    description: 'View Playbook details and discussions'
+  },
   hero: {
     title: 'Welcome to TKE Playbook',
     subtitle: 'This website brings together the latest TKE best practice Playbooks. Learn how to use and build auto-scaling applications based on low-cost, fully managed containerized platforms.',
@@ -102,6 +117,13 @@ const en = {
   },
   empty: {
     description: 'No directory data available'
+  },
+  dialog: {
+    close: 'Close',
+    viewOnGithub: 'View on GitHub',
+    description: 'Description',
+    tags: 'Tags',
+    comments: 'Comments'
   },
   categories: {
     undefined: 'Undefined'
