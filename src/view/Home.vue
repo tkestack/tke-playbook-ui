@@ -14,6 +14,12 @@
                         </el-icon>
                         {{ locale === 'zh' ? 'EN' : '中文' }}
                     </el-button>
+                    <el-button @click="goToDiscussion">
+                        <el-icon>
+                            <ChatDotRound />
+                        </el-icon>
+                        {{ t('header.discussion') }}
+                    </el-button>
                     <el-button type="primary" @click="openGithubRepo">
                         <el-icon>
                             <Link />
@@ -162,6 +168,42 @@
                 </div>
             </div>
         </main>
+
+        <!-- 讨论区 -->
+        <section class="discussion-section">
+            <div class="content-wrapper">
+                <div class="discussion-header">
+                    <h2>{{ t('discussion.pageTitle') }}</h2>
+                    <p>{{ t('discussion.pageDescription') }}</p>
+                </div>
+
+                <!-- Giscus 评论区 -->
+                <div class="giscus-container">
+                    <div ref="giscusRef" class="giscus-comments">
+                        <div class="loading-placeholder" v-if="giscusLoading">
+                            <el-skeleton :rows="5" animated />
+                        </div>
+                    </div>
+                    <div class="giscus-info">
+                        <el-alert
+                            :title="t('discussion.giscusInfo')"
+                            type="info"
+                            show-icon
+                            :closable="false"
+                        >
+                            <template #default>
+                                <p>{{ t('discussion.giscusDescription') }}</p>
+                                <p>
+                                    <el-link @click="openGithubDiscussions" type="primary">
+                                        {{ t('discussion.viewOnGithub') }}
+                                    </el-link>
+                                </p>
+                            </template>
+                        </el-alert>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </template>
 
@@ -169,6 +211,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 import {
     Search,
     Link,
@@ -179,16 +222,20 @@ import {
     Tools,
     Setting,
     Folder,
-    Switch
+    Switch,
+    ChatDotRound
 } from '@element-plus/icons-vue'
 
 // 国际化
 const { t, locale } = useI18n()
+const router = useRouter()
 
 // 响应式数据
 const searchKeyword = ref('')
 const activeCategory = ref('all')
 const lastUpdateTime = ref('')
+const giscusRef = ref(null)
+const giscusLoading = ref(true)
 
 // 目录数据（从 GitHub API 或生成的 JSON 文件获取）
 const directories = ref([])
@@ -198,6 +245,10 @@ const toggleLanguage = () => {
     locale.value = locale.value === 'zh' ? 'en' : 'zh'
     // 重新设置分类为全部，避免分类名称不匹配
     activeCategory.value = 'all'
+    // 重新加载Giscus以应用新语言
+    setTimeout(() => {
+        reloadGiscus()
+    }, 100)
 }
 
 // 分类处理工具函数
@@ -331,6 +382,83 @@ const openGithubRepo = () => {
     window.open('https://github.com/tkestack/tke-playbook', '_blank')
 }
 
+// 打开GitHub讨论区
+const openGithubDiscussions = () => {
+    window.open('https://github.com/tkestack/tke-playbook/discussions', '_blank')
+}
+
+// 加载Giscus
+const loadGiscus = () => {
+    // 显示加载状态
+    giscusLoading.value = true
+    
+    // 清空容器
+    if (giscusRef.value) {
+        giscusRef.value.innerHTML = ''
+    }
+
+    // 创建Giscus脚本
+    const script = document.createElement('script')
+    script.src = 'https://giscus.app/client.js'
+    script.async = true
+    script.crossOrigin = 'anonymous'
+    script.setAttribute('data-repo', 'tkestack/tke-playbook')
+    script.setAttribute('data-repo-id', 'R_kgDOPdwrHA')
+    script.setAttribute('data-category', 'General')
+    script.setAttribute('data-category-id', 'DIC_kwDOPdwrHM4Cu90Q')
+    script.setAttribute('data-mapping', 'pathname')
+    script.setAttribute('data-strict', '0')
+    script.setAttribute('data-reactions-enabled', '1')
+    script.setAttribute('data-emit-metadata', '1')
+    script.setAttribute('data-input-position', 'top')
+    script.setAttribute('data-theme', 'preferred_color_scheme')
+    script.setAttribute('data-lang', locale.value === 'zh' ? 'zh-CN' : 'en')
+    script.setAttribute('data-loading', 'lazy')
+    
+    // 监听Giscus加载完成事件
+    script.addEventListener('load', () => {
+        giscusLoading.value = false
+    })
+    
+    // 监听Giscus错误事件
+    script.addEventListener('error', () => {
+        giscusLoading.value = false
+        ElMessage.error(t('discussion.loadError'))
+    })
+    
+    // 添加到容器
+    if (giscusRef.value) {
+        giscusRef.value.appendChild(script)
+    }
+}
+
+// 重新加载Giscus当语言变化时
+const reloadGiscus = () => {
+    loadGiscus()
+}
+
+// 强制重新加载Giscus（用于登出后重新登录）
+const forceReloadGiscus = () => {
+    // 清除Giscus会话
+    localStorage.removeItem('giscus-session');
+    
+    // 清空容器
+    if (giscusRef.value) {
+        giscusRef.value.innerHTML = '';
+    }
+    
+    // 重新加载Giscus
+    loadGiscus();
+}
+
+const goToDiscussion = () => {
+    // 滚动到讨论区
+    const discussionSection = document.querySelector('.discussion-section')
+    if (discussionSection) {
+        discussionSection.scrollIntoView({ behavior: 'smooth' })
+    }
+}
+
 const formatDate = (date) => {
     return new Date(date).toLocaleDateString('zh-CN')
 }
@@ -351,6 +479,8 @@ const formatRelativeTime = (date) => {
 // 生命周期
 onMounted(() => {
     fetchDirectoriesFromGitHub()
+    // 初始化Giscus评论区
+    forceReloadGiscus()
 })
 </script>
 

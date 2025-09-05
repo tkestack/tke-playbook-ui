@@ -459,3 +459,50 @@ body {
     flex-shrink: 0;
   }
 }
+
+/* 讨论区样式 */
+.discussion-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+    padding: 4rem 0 2rem;
+    margin-top: 2rem;
+}
+
+.discussion-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.discussion-header h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.discussion-header p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.giscus-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin-top: 1rem;
+}
+
+.giscus-comments {
+    min-height: 500px;
+}
+
+@media (max-width: 768px) {
+    .discussion-section {
+        padding: 2rem 0 1rem;
+    }
+    
+    .giscus-container {
+        padding: 1rem;
+    }
+}
