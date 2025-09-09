@@ -512,6 +512,17 @@ body {
     max-height: 90vh;
 }
 
+.playbook-dialog.el-dialog {
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 40px);
+    margin: 20px auto;
+}
+
+.playbook-dialog .el-dialog__body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
 .dialog-content {
     display: flex;
     flex-direction: column;
@@ -620,6 +631,13 @@ body {
     .playbook-dialog {
         width: 95% !important;
         max-height: 95vh;
+        margin: 10px auto;
+    }
+    
+    .playbook-dialog.el-dialog {
+        max-width: calc(100vw - 20px);
+        max-height: calc(100vh - 20px);
+        margin: 10px auto;
     }
     
     .dialog-header h2 {
@@ -644,5 +662,41 @@ body {
     .giscus-comments {
         min-height: 250px;
         padding: 12px;
+    }
+}
+
+/* 小屏幕设备优化 */
+@media (max-width: 480px) {
+    .playbook-dialog {
+        width: 98% !important;
+        max-height: 98vh;
+        margin: 5px auto;
+    }
+    
+    .playbook-dialog.el-dialog {
+        max-width: calc(100vw - 10px);
+        max-height: calc(100vh - 10px);
+        margin: 5px auto;
+    }
+    
+    .dialog-content {
+        max-height: calc(98vh - 80px);
+    }
+    
+    .dialog-header-wrapper {
+        padding: 10px 12px;
+    }
+    
+    .dialog-title {
+        font-size: 18px;
+    }
+    
+    .dialog-section {
+        padding: 0 12px;
+    }
+    
+    .giscus-comments {
+        min-height: 200px;
+        padding: 8px;
     }
 }

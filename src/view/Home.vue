@@ -160,11 +160,13 @@
                     <el-dialog
                         v-model="dialogVisible"
                         :title="locale === 'en' ? selectedDirectory?.nameEn : selectedDirectory?.name"
-                        width="80%"
+                        width="90%"
+                        max-width="1200px"
                         class="playbook-dialog"
                         append-to-body
                         destroy-on-close
                         @closed="handleDialogClosed"
+                        :fullscreen="isMobile"
                     >
                         <template #header>
                             <div class="dialog-header-wrapper">
@@ -262,6 +264,7 @@ const directories = ref([])
 // 对话框相关数据
 const dialogVisible = ref(false)
 const selectedDirectory = ref(null)
+const isMobile = ref(window.innerWidth <= 768)
 
 // 语言切换
 const toggleLanguage = () => {
@@ -441,8 +444,19 @@ const formatRelativeTime = (date) => {
     return t('card.updatedMonthsAgo', { months: Math.floor(days / 30) })
 }
 
+// 窗口大小变化监听
+const handleResize = () => {
+    isMobile.value = window.innerWidth <= 768
+}
+
 // 生命周期
 onMounted(() => {
     fetchDirectoriesFromGitHub()
+    window.addEventListener('resize', handleResize)
+})
+
+// 组件卸载时移除事件监听
+onUnmounted(() => {
+    window.removeEventListener('resize', handleResize)
 })
 </script>
