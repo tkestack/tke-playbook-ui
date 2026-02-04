@@ -1,5 +1,5 @@
 {
-  "lastUpdate": "2026-02-03T04:20:25.098Z",
+  "lastUpdate": "2026-02-04T04:14:22.296Z",
   "totalCount": 8,
   "directories": [
     {
@@ -9,8 +9,8 @@
       "relativePath": "tke-playbook/tke-ai-playbook",
       "description": "本项目提供基于 Kubernetes 的 AI 大模型相关脚本，包含模型下载、部署推理服务、性能测试等模块，提供在 TKE 一站式体验 AI 相关功能的能力。",
       "descriptionEn": "This project provides Kubernetes-based scripts for AI large language model (LLM) operations, including model downloading, inference service deployment, and performance benchmarking, enabling end-to-end AI workflows on Tencent Kubernetes Engine (TKE).",
-      "createdAt": "2026-02-03T04:20:15.362Z",
-      "updatedAt": "2026-02-03T04:20:15.362Z",
+      "createdAt": "2026-02-04T04:14:15.772Z",
+      "updatedAt": "2026-02-04T04:14:15.772Z",
       "fileCount": 1,
       "tags": [
         "AI"
@@ -32,8 +32,8 @@
       "relativePath": "tke-playbook/tke-chaos-playbook",
       "description": "K8s中心化架构与声明式管理虽提升运维效率，却因链式故障风险威胁集群稳定性，具体表现为：\n• 级联删除风险：误删namespace可能连带删除核心业务资源（如workload、Pod），导致业务中断。  \n\n• 控制面过载隐患：第三方组件（如DaemonSet监控）可能引发控制面故障，依赖控制面的组件（如coredns、Flink）连锁失效，造成数据面崩溃。  \n\n• 架构脆弱性传导：单点组件异常（如kube-apiserver中断）可通过依赖链引发全局故障，放大故障影响范围。  \n\n为应对上述风险，需通过故障演练提前验证系统韧性，覆盖节点故障、资源误操作、控制面过载等场景，降低故障爆炸半径，保障业务连续性。",
       "descriptionEn": "Kubernetes' centralized architecture and declarative management model, while enabling efficient operations, also introduce critical risks of cascading failures. The open ecosystem (with third-party components like Flink and Rancher) and complex multi-service environments further exacerbate these risks:\n\nCascading deletion disaster: A customer using Rancher to manage Kubernetes clusters accidentally deleted a namespace, which subsequently deleted all core business workloads and Pods in the production cluster, causing service interruption.\nControl plane overload: In a large OpenAI cluster, deploying a DaemonSet monitoring component triggered control plane failures and coredns overload. The coredns scaling depended on control plane recovery, affecting the data plane and causing global OpenAI service disruption.\nData plane's strong dependency on control plane: In open-source Flink on Kubernetes scenarios, kube-apiserver disruption may cause Flink task checkpoint failures and leader election anomalies. In severe cases, it may trigger abnormal exits of all existing task Pods, leading to complete data plane collapse and major incidents.\nThese cases are not uncommon. The root cause lies in Kubernetes' architecture vulnerability chain - a single component failure or incorrect command can trigger global failures through centralized pathways.\n\nTo proactively understand the impact duration and severity of control plane failures on services, we should conduct regular fault simulation and assessments to improve failure response capabilities, ensuring Kubernetes environment stability and reliability.\n\nThis project provides Kubernetes chaos testing capabilities covering scenarios like node shutdown, accidental resource deletion, and control plane component (etcd, kube-apiserver, coredns, etc.) overload/disruption, it will help you minimize blast radius of cluster failures.",
-      "createdAt": "2026-02-03T04:20:15.362Z",
-      "updatedAt": "2026-02-03T04:20:15.362Z",
+      "createdAt": "2026-02-04T04:14:15.772Z",
+      "updatedAt": "2026-02-04T04:14:15.772Z",
       "fileCount": 1,
       "tags": [
         "HA, disaster recovery"
@@ -55,8 +55,8 @@
       "relativePath": "tke-playbook/tke-direct-upgrade",
       "description": "使用腾讯云 Python SDK 直接升级 TKE 集群控制平面和工作节点。",
       "descriptionEn": "Upgrade TKE cluster control plane and worker nodes directly using Tencent Cloud Python SDK.",
-      "createdAt": "2026-02-03T04:20:15.363Z",
-      "updatedAt": "2026-02-03T04:20:15.363Z",
+      "createdAt": "2026-02-04T04:14:15.772Z",
+      "updatedAt": "2026-02-04T04:14:15.773Z",
       "fileCount": 9,
       "tags": [
         "tke",
@@ -92,8 +92,8 @@
       "relativePath": "tke-playbook/tke-get-client-ip",
       "description": "在腾讯云容器服务（TKE）中，客户端真实源IP的获取是安全审计、访问控制、日志分析等场景的核心需求。然而，默认的Kubernetes网络模型会导致源IP被替换为节点IP,例如:\n非直连模式下流量经过NodePort转发，源IP丢失；\n直连模式未正确配置时，CLB无法穿透节点直达Pod。\n本项目提供五种标准化场景的解决方案，覆盖TKE两种网络模式和两种节点类型，确保业务零改造获取真实客户端IP。",
       "descriptionEn": "In Tencent Kubernetes Engine (TKE), preserving the client’s real source IPis essential for security auditing, access control, logging, and analytics. However, the default Kubernetes networking model replaces the source IP with the node IP.For example:\nIn non-direct mode, traffic forwarded via NodePort loses the source IP.\nIn direct mode, misconfigurations prevent CLB (Cloud Load Balancer) from reaching Pods directly.\nThis project provides ​five standardized solutions​ covering both TKE networking modes and node types, enabling zero-code modification for real client IP preservation.",
-      "createdAt": "2026-02-03T04:20:15.363Z",
-      "updatedAt": "2026-02-03T04:20:15.372Z",
+      "createdAt": "2026-02-04T04:14:15.773Z",
+      "updatedAt": "2026-02-04T04:14:15.782Z",
       "fileCount": 75,
       "tags": [
         "Client Origin IP"
@@ -115,8 +115,8 @@
       "relativePath": "tke-playbook/tke-hybrid-node-architecture",
       "description": "通过Terraform实现TKE集群的智能节点调度架构，核心系统addon部署在跨AZ的超级节点上，业务应用部署在原生节点池，支持突发流量快速扩展",
       "descriptionEn": "Implementing an intelligent node scheduling architecture for TKE clusters through Terraform, with core system addons deployed on cross-AZ super nodes and business applications on native node pools, supporting rapid scaling during traffic spikes",
-      "createdAt": "2026-02-03T04:20:15.374Z",
-      "updatedAt": "2026-02-03T04:20:15.374Z",
+      "createdAt": "2026-02-04T04:14:15.784Z",
+      "updatedAt": "2026-02-04T04:14:15.784Z",
       "fileCount": 8,
       "tags": [
         "TKE",
@@ -150,8 +150,8 @@
       "relativePath": "tke-playbook/tke-karpenter",
       "description": "部署 tke-karpenter PoC 环境。",
       "descriptionEn": "Deploy tke-karpenter PoC environments。",
-      "createdAt": "2026-02-03T04:20:15.374Z",
-      "updatedAt": "2026-02-03T04:20:15.375Z",
+      "createdAt": "2026-02-04T04:14:15.784Z",
+      "updatedAt": "2026-02-04T04:14:15.785Z",
       "fileCount": 14,
       "tags": [
         "TKE, Karpenter"
@@ -173,8 +173,8 @@
       "relativePath": "tke-playbook/tke-terraform-examples",
       "description": "通过Terraform实现TKE集群、原生节点和超级节点的全生命周期管理",
       "descriptionEn": "Full lifecycle management of TKE clusters, native nodes, and super nodes through Terraform",
-      "createdAt": "2026-02-03T04:20:15.375Z",
-      "updatedAt": "2026-02-03T04:20:15.376Z",
+      "createdAt": "2026-02-04T04:14:15.785Z",
+      "updatedAt": "2026-02-04T04:14:15.786Z",
       "fileCount": 29,
       "tags": [
         "TKE",
@@ -204,8 +204,8 @@
       "relativePath": "tke-playbook/tke-to-community-ingress",
       "description": "通过两种方法实现 TKE NginxIngress 到社区版 Nginx Ingress 的安全迁移",
       "descriptionEn": "Safely Migrate TKE Nginx Ingress to Community Edition Nginx Ingress Using Two Methods",
-      "createdAt": "2026-02-03T04:20:15.376Z",
-      "updatedAt": "2026-02-03T04:20:15.377Z",
+      "createdAt": "2026-02-04T04:14:15.786Z",
+      "updatedAt": "2026-02-04T04:14:15.787Z",
       "fileCount": 25,
       "tags": [
         "TKE，Ingress"
